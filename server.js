@@ -32,10 +32,20 @@ cloudinary.config({
 const app = express();
 const PORT = process.env.PORT || 8000;
 
-// Middleware de CORS
+const allowedOrigins = [
+  "http://localhost:3000", // Desarrollo local
+  "https://foliraweb-davids-projects-85d9ab92.vercel.app", // Producción
+];
+
 app.use(
   cors({
-    origin: "https://foliraweb-davids-projects-85d9ab92.vercel.app",
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
