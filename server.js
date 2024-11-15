@@ -35,7 +35,7 @@ const PORT = process.env.PORT || 8000;
 // Middleware de CORS
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://folira.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
