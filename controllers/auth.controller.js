@@ -3,6 +3,7 @@ import GeneroLiterario from "../models/generoLiterario.model.js";
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import * as Yup from "yup";
+import jwt from "jsonwebtoken";
 
 const validDomains = [
   "gmail.com",
