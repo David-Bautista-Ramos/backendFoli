@@ -159,6 +159,7 @@ export const login = async (req, res) => {
       seguidores: user.seguidores,
       estado: user.estado,
       roles: user.roles,
+      token:generateTokenAndSetCookie,
     });
   } catch (error) {
     console.error("Error en el controlador de inicio de sesión:", error.message);
