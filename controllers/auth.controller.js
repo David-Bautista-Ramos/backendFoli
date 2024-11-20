@@ -142,8 +142,16 @@ export const login = async (req, res) => {
         .json({ error: "Correo o contraseña incorrectos." });
     }
 
-    // Generar token y guardar en cookie
-    generateTokenAndSetCookie(user._id, res);
+    // Genera el token
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "15d" });
+
+    // Envía la cookie
+    res.cookie("jwt", token, {
+        httpOnly: true, // Evita el acceso desde el frontend
+        secure: process.env.NODE_ENV === "production", // Solo HTTPS en producción
+        sameSite: "None", // Compatible con cross-origin
+        maxAge: 15 * 24 * 60 * 60 * 1000, // 15 días
+    });
 
     // Respuesta de éxito
     return res.status(200).json({

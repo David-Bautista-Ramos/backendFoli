@@ -40,16 +40,9 @@ const allowedOrigins = [
 
 app.use(
   cors({
-      origin: (origin, callback) => {
-          if (!origin || allowedOrigins.includes(origin)) {
-              callback(null, true);
-          } else {
-              console.error(`Origen no permitido por CORS: ${origin}`);
-              callback(new Error("Not allowed by CORS"));
-          }
-      },
+      origin: true, // Permite todas las solicitudes
       methods: ["GET", "POST", "PUT", "DELETE"],
-      credentials: true, // Permite cookies
+      credentials: true,
   })
 );
 
