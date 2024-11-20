@@ -34,7 +34,7 @@ const PORT = process.env.PORT || 8000;
 
 const allowedOrigins = [
   "https://foliraweb-davids-projects-85d9ab92.vercel.app",
-  "https://foliraweb-pl7mne1wz-davids-projects-85d9ab92.vercel.app",
+  "https://foliraweb-klkix7ca4-davids-projects-85d9ab92.vercel.app",
   "https://foliraweb.vercel.app",
   "http://localhost:3000"
 ];
