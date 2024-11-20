@@ -142,27 +142,24 @@ export const login = async (req, res) => {
         .json({ error: "Correo o contraseña incorrectos." });
     }
 
-    // Login Controller (Backend)
-const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-  expiresIn: "15d",
-});
+    // Generar token y guardar en cookie
+    generateTokenAndSetCookie(user._id, res);
 
-// Enviar el token al frontend
-return res.status(200).json({
-  _id: user._id,
-  nombre: user.nombre,
-  nombreCompleto: user.nombreCompleto,
-  correo: user.correo,
-  pais: user.pais,
-  fotoPerfil: user.fotoPerfil,
-  fotoPerfilBan: user.fotoPerfilBan,
-  generoLiterarioPreferido: user.generoLiterarioPreferido,
-  amigos: user.amigos,
-  seguidores: user.seguidores,
-  estado: user.estado,
-  roles: user.roles,
-  token,  // Asegúrate de que el token se esté enviando correctamente
-});
+    // Respuesta de éxito
+    return res.status(200).json({
+      _id: user._id,
+      nombre: user.nombre,
+      nombreCompleto: user.nombreCompleto,
+      correo: user.correo,
+      pais: user.pais,
+      fotoPerfil: user.fotoPerfil,
+      fotoPerfilBan: user.fotoPerfilBan,
+      generoLiterarioPreferido: user.generoLiterarioPreferido,
+      amigos: user.amigos,
+      seguidores: user.seguidores,
+      estado: user.estado,
+      roles: user.roles,
+    });
   } catch (error) {
     console.error("Error en el controlador de inicio de sesión:", error.message);
     return res.status(500).json({ error: "Error en el servidor." });
