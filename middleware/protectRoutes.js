@@ -7,7 +7,7 @@ dotenv.config(); // Asegúrate de cargar las variables de entorno
 export const protectRoutes = async (req, res, next) => {
     try {
         // Obtener el token de las cookies
-        const token = req.cookies.jwt;
+        const token = req.headers['authorization']?.split(' ')[1];
         console.log('Token recibido:', token); // Log para verificar si el token se recibe
 
         if (!token) {

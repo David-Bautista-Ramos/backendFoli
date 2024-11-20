@@ -3,7 +3,6 @@ import GeneroLiterario from "../models/generoLiterario.model.js";
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import * as Yup from "yup";
-import jwt from "jsonwebtoken";
 
 const validDomains = [
   "gmail.com",
@@ -143,15 +142,10 @@ export const login = async (req, res) => {
         .json({ error: "Correo o contraseña incorrectos." });
     }
 
-    // Genera el token
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "15d" });
-
-    // Envía la cookie
-    res.cookie("jwt", token, {
-        httpOnly: true, // Evita el acceso desde el frontend
-        secure: process.env.NODE_ENV === "production", // Solo HTTPS en producción
-        sameSite: "None", // Compatible con cross-origin
-        maxAge: 15 * 24 * 60 * 60 * 1000, // 15 días
+    const token = jwt.sign(
+      { userId: user._id     }
+      , process.env.JWT_SECRET, {
+      expiresIn: "15d",
     });
 
     // Respuesta de éxito
@@ -168,6 +162,7 @@ export const login = async (req, res) => {
       seguidores: user.seguidores,
       estado: user.estado,
       roles: user.roles,
+      token
     });
   } catch (error) {
     console.error("Error en el controlador de inicio de sesión:", error.message);
