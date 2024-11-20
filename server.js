@@ -34,20 +34,22 @@ const PORT = process.env.PORT || 8000;
 
 const allowedOrigins = [
   "https://foliraweb-davids-projects-85d9ab92.vercel.app",
-  "https://foliraweb.vercel.app"
+  "https://foliraweb.vercel.app",
+  "http://localhost:3000"
 ];
 
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true, // Permite el envío de cookies
+      origin: (origin, callback) => {
+          if (!origin || allowedOrigins.includes(origin)) {
+              callback(null, true);
+          } else {
+              console.error(`Origen no permitido por CORS: ${origin}`);
+              callback(new Error("Not allowed by CORS"));
+          }
+      },
+      methods: ["GET", "POST", "PUT", "DELETE"],
+      credentials: true, // Permite cookies
   })
 );
 
