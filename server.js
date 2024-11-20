@@ -40,7 +40,7 @@ const allowedOrigins = [
 
 app.use(
   cors({
-      origin: true, // Permite todas las solicitudes
+      origin: allowedOrigins, // Permite todas las solicitudes
       methods: ["GET", "POST", "PUT", "DELETE"],
       credentials: true,
   })
