@@ -7,7 +7,7 @@ dotenv.config();
 export const protectRoutes = async (req, res, next) => {
   try {
     const token = req.headers.authorization?.split(' ')[1]; // 'Bearer <token>'
-    
+    console.log("el token:" , token)
     if (!token) {
       return res.status(401).json({ error: "No se proporcionó el token" });
     }
