@@ -7,6 +7,8 @@ dotenv.config(); // Asegúrate de cargar las variables de entorno
 export const protectRoutes = async (req, res, next)=>{
     try {
         const token = req.cookies.jwt;
+        console.log('Token recibido:', token); // Log para verificar si el token se recibe
+
         if(!token) {
             return res.status(401).json({error: "Sin Autorización: No proporiona el Token"});
         }
